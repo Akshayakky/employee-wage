@@ -10,14 +10,16 @@ IS_FULL_TIME=2;
 empRatePerHr=20;
 randomCheck=$((RANDOM%3));
 
-if [ $IS_FULL_TIME -eq $randomCheck ];
-then
-	empHrs=8;
-elif [ $IS_PART_TIME -eq $randomCheck ];
-then
-	empHrs=4;
-else
-	empHrs=0;
-fi
+case $randomCheck in
+		$IS_FULL_TIME)
+			empHrs=8
+			;;
+		$IS_PART_TIME)
+			empHrs=4
+			;;
+		*)
+			empHrs=0
+			;;
+esac
 
 salary=$(($empHrs*$empRatePerHr));
