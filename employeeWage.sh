@@ -13,7 +13,7 @@ NUM_WORKING_DAYS=20;
 totalEmpHr=0;
 totalWorkingDays=0;
 
-#DECLARING DICTIONARY
+#DECLARE DICTIONARY
 declare -A empDailyWage
 
 #FUNCTION TO RETURN WORK HOURS
@@ -47,8 +47,6 @@ do
 	totalEmpHr=$(($totalEmpHr+$empHrs));
 	empDailyWage["$totalWorkingDays"]="$( calculateDailyWage $empHrs )"
 done
-
-totalSalary=$(($totalEmpHr*$EMP_RATE_PER_HOUR));
 
 #CALCULATE TOTAL SALARY FOR A MONTH
 totalSalary=$(($totalEmpHr*$EMP_RATE_PER_HOUR));
