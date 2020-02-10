@@ -13,6 +13,9 @@ NUM_WORKING_DAYS=20;
 totalEmpHr=0;
 totalWorkingDays=0;
 
+#DECLARING DICTIONARY
+declare -A empDailyWage
+
 #FUNCTION TO RETURN WORK HOURS
 function getWorkingHours() {
 	case $1 in
@@ -42,7 +45,7 @@ do
 	((totalWorkingDays++));
 	empHrs="$( getWorkingHours $((RANDOM%3)) )";
 	totalEmpHr=$(($totalEmpHr+$empHrs));
-	empDailyWage[$totalWorkingDays]="$( calculateDailyWage $empHrs )"
+	empDailyWage["$totalWorkingDays"]="$( calculateDailyWage $empHrs )"
 done
 
 totalSalary=$(($totalEmpHr*$EMP_RATE_PER_HOUR));
@@ -52,3 +55,4 @@ totalSalary=$(($totalEmpHr*$EMP_RATE_PER_HOUR));
 
 #DISPLAY DAILY WAGES
 echo "Daily Wage : " ${empDailyWage[@]}
+echo "All Keys : " ${!empDailyWage[@]}
