@@ -13,6 +13,7 @@ NUM_WORKING_DAYS=20;
 totalEmpHr=0;
 totalWorkingDays=0;
 
+#FUNCTION TO RETURN WORK HOURS
 function getWorkingHours() {
 	case $1 in
 		$IS_FULL_TIME)
@@ -28,11 +29,26 @@ function getWorkingHours() {
 	echo $empHrs;
 }
 
+#FUNCTION TO CALCULATE DAILY WAGE
+function calculateDailyWage() {
+	local workHrs=$1
+	wage=$(($workHrs*$EMP_RATE_PER_HOUR))
+	echo $wage
+}
+
+#CALCULATING DAILY EMPLOYEE WAGE AND TOTAL EMPLOYEE HOURS TILL MAXIMUM WORKING HOURS OR TOTAL WORKING DAYS IN A MONTH IS REACHED
 while [[ $totalEmpHr -lt $MAX_HRS_IN_MONTH && $totalWorkingDays -lt $NUM_WORKING_DAYS ]]
 do
 	((totalWorkingDays++));
 	empHrs="$( getWorkingHours $((RANDOM%3)) )";
 	totalEmpHr=$(($totalEmpHr+$empHrs));
+	empDailyWage[$totalWorkingDays]="$( calculateDailyWage $empHrs )"
 done
 
 totalSalary=$(($totalEmpHr*$EMP_RATE_PER_HOUR));
+
+#CALCULATE TOTAL SALARY FOR A MONTH
+totalSalary=$(($totalEmpHr*$EMP_RATE_PER_HOUR));
+
+#DISPLAY DAILY WAGES
+echo "Daily Wage : " ${empDailyWage[@]}
